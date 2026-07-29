@@ -3,12 +3,12 @@
  * Adding a new provider = add its models here + create an adapter.
  */
 
-export type AIModelId = 'gpt-4o' | 'gpt-4o-mini';
+export type AIModelId = 'gpt-4o' | 'gpt-4o-mini' | 'gemini-flash-latest';
 
 export interface AIModelConfig {
   id: AIModelId;
   name: string;
-  provider: 'openai';
+  provider: 'openai' | 'google';
   maxInputTokens: number;
   maxOutputTokens: number;
   supportsStreaming: boolean;
@@ -39,6 +39,17 @@ export const AI_MODELS: Record<AIModelId, AIModelConfig> = {
     supportsVision: false, // deferred
     costPer1kInput: 0.00015,
     costPer1kOutput: 0.0006,
+  },
+  'gemini-flash-latest': {
+    id: 'gemini-flash-latest',
+    name: 'Gemini 2.5 Flash',
+    provider: 'google',
+    maxInputTokens: 1048576,
+    maxOutputTokens: 8192,
+    supportsStreaming: true,
+    supportsVision: true,
+    costPer1kInput: 0.000075,
+    costPer1kOutput: 0.0003,
   },
 };
 

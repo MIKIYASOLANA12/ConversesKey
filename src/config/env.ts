@@ -19,6 +19,10 @@ const envSchema = z.object({
   // App
   NEXT_PUBLIC_APP_URL: z.string().url('Must be a valid URL').default('http://localhost:3000'),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+
+  // AI & Voice Services
+  GEMINI_API_KEY: z.string().min(1, 'Required'),
+  ELEVENLABS_API_KEY: z.string().min(1, 'Required'),
 });
 
 const parsed = envSchema.safeParse(process.env);

@@ -10,7 +10,7 @@ export const FEATURES = {
 
   // Deferred — do not implement yet
   vision: false,
-  voice: false,
+  voice: true,
   teams: false,
   fileUploads: false,
   promptTemplates: false,

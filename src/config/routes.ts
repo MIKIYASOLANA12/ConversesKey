@@ -11,4 +11,7 @@ export const ROUTES = {
   conversation: (id: string) => `/conversations/${id}`,
   settings: '/settings',
   profile: '/profile',
+  search: '/search',
+  favorites: '/favorites',
+  templates: '/templates',
 } as const;
