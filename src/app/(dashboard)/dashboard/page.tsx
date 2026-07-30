@@ -17,9 +17,19 @@ export default async function DashboardPage() {
     redirect('/login');
   }
 
-  // Fetch real stats
-  const sessions = await db.select().from(voiceSessions).where(eq(voiceSessions.userId, user.id)).orderBy(desc(voiceSessions.startTime)).limit(5);
-  
+  // Fetch real stats — gracefully fall back to empty if tables don't exist yet
+  let sessions: typeof voiceSessions.$inferSelect[] = [];
+  try {
+    sessions = await db
+      .select()
+      .from(voiceSessions)
+      .where(eq(voiceSessions.userId, user.id))
+      .orderBy(desc(voiceSessions.startTime))
+      .limit(5);
+  } catch {
+    // Tables may not be created yet — dashboard still renders
+  }
+
   let totalDuration = 0;
   let totalSessions = sessions.length;
   let avgConfidence = 0;

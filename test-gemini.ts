@@ -4,7 +4,7 @@ import { aiGateway } from './src/server/ai/gateway';
 async function test() {
   console.log('Testing Gemini API...');
   try {
-    const streamRes = await aiGateway.streamVoice('gemini-flash-latest', [
+    const streamRes = await aiGateway.streamVoice('gemini-2.5-flash', [
       { role: 'system', content: 'You are a test bot.' },
       { role: 'user', content: 'Hello, say ping.' }
     ]);

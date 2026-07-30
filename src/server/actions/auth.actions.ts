@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { ROUTES } from '@/config/routes';
+import { redirect } from 'next/navigation';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -77,7 +78,7 @@ export async function registerAction(formData: FormData) {
 export async function logoutAction() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
-  return { success: true, redirect: ROUTES.login };
+  redirect(ROUTES.login);
 }
 
 export async function signInWithGoogleAction(): Promise<void> {

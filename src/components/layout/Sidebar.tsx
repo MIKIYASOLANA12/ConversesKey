@@ -141,7 +141,7 @@ export function Sidebar() {
             <span>{item.name}</span>
           </Link>
         ))}
-        <form action={logoutAction as unknown as string} className="pt-2">
+        <form action={logoutAction} className="pt-2">
           <Button 
             variant="ghost" 
             className="w-full justify-start gap-3 px-3 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"

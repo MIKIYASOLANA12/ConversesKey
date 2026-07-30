@@ -3,7 +3,7 @@
  * Adding a new provider = add its models here + create an adapter.
  */
 
-export type AIModelId = 'gpt-4o' | 'gpt-4o-mini' | 'gemini-flash-latest';
+export type AIModelId = 'gpt-4o' | 'gpt-4o-mini' | 'gemini-2.5-flash';
 
 export interface AIModelConfig {
   id: AIModelId;
@@ -40,8 +40,8 @@ export const AI_MODELS: Record<AIModelId, AIModelConfig> = {
     costPer1kInput: 0.00015,
     costPer1kOutput: 0.0006,
   },
-  'gemini-flash-latest': {
-    id: 'gemini-flash-latest',
+  'gemini-2.5-flash': {
+    id: 'gemini-2.5-flash',
     name: 'Gemini 2.5 Flash',
     provider: 'google',
     maxInputTokens: 1048576,

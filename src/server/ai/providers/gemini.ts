@@ -4,10 +4,22 @@ import { AIProvider, StreamResponse } from './interface';
 // Initialize the client with the API key explicitly from env
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+/**
+ * Maps internal config model IDs to actual Google AI model names.
+ * The config keys are used for routing/lookup; the actual model names are
+ * what the Google GenAI API expects.
+ */
+const MODEL_NAME_MAP: Record<string, string> = {
+  'gemini-2.5-flash': 'gemini-2.5-flash',
+};
+
 export const geminiAdapter: AIProvider = {
   id: 'google',
 
   async stream({ model, messages, temperature }) {
+    // Map internal config key to actual Google AI model name
+    const modelName = MODEL_NAME_MAP[model] ?? model;
+
     // Convert generic messages to Gemini format
     let systemInstruction: string | undefined;
     const contents: any[] = [];
@@ -26,7 +38,7 @@ export const geminiAdapter: AIProvider = {
 
 
     const responseStream = await ai.models.generateContentStream({
-      model: model,
+      model: modelName,
       contents,
       config: {
         systemInstruction,
@@ -59,7 +71,7 @@ export const geminiAdapter: AIProvider = {
   async healthCheck() {
     try {
       await ai.models.generateContent({
-        model: 'gemini-flash-latest',
+        model: 'gemini-2.0-flash',
         contents: 'ping',
       });
       return true;

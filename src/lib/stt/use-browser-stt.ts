@@ -99,9 +99,8 @@ export function useBrowserSTT() {
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      console.error(`[STT] error: ${event.error}`);
-
       if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        console.error(`[STT] error: ${event.error}`);
         setError('Microphone permission denied. Please allow microphone access in your browser settings.');
         isIntentionalStopRef.current = true;
         isRunningRef.current = false;
@@ -109,12 +108,15 @@ export function useBrowserSTT() {
       } else if (event.error === 'no-speech') {
         // Not a real error — Chrome fires this after silence; onend will restart
         console.log('[STT] no-speech (will auto-restart if call is active)');
+      } else if (event.error === 'aborted') {
+        // Normal result of stopListening() calling abort() — not an error
+        console.log('[STT] aborted (intentional stop)');
       } else if (event.error === 'network') {
         // Transient network error on Chrome — let onend handle restart
         console.warn('[STT] network error — will attempt restart');
       } else {
         // For any other error, log but still let onend decide whether to restart
-        console.warn(`[STT] non-fatal error: ${event.error}`);
+        console.error(`[STT] error: ${event.error}`);
       }
     };
 

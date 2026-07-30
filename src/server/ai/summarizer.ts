@@ -64,7 +64,7 @@ ${transcriptText}`;
 
   try {
     const response = await aiGateway.streamVoice(
-      'gemini-flash-latest',
+      'gemini-2.5-flash',
       [
         { role: 'user', content: summaryPrompt }
       ],

@@ -106,7 +106,7 @@ export async function POST(req: Request) {
 
     // Stream the voice response using Gemini 2.5 Flash
     const response = await aiGateway.streamVoice(
-      'gemini-flash-latest',
+      'gemini-2.5-flash',
       fullMessages,
       personality.temperature
     );
