@@ -89,7 +89,7 @@ export async function signInWithGoogleAction(): Promise<void> {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${baseUrl}/api/auth/callback`,
+      redirectTo: `${baseUrl}/auth/callback?next=/dashboard`,
     },
   });
 
